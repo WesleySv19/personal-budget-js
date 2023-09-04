@@ -6,14 +6,6 @@ const type = document.getElementById('tipo')
 const description = document.getElementById('descricao')
 const val = document.getElementById('valor')
 
-const clean = () => {
-    year.value = ''
-    month.value = ''
-    day.value = ''
-    type.value = ''
-    description.value = ''
-    val.value = ''
-}
 
 class Register {
     constructor(year, month, day, type, description, val) {
@@ -34,6 +26,15 @@ class Register {
 
         return true
     }
+}
+
+const clean = () => {
+    year.value = ''
+    month.value = ''
+    day.value = ''
+    type.value = ''
+    description.value = ''
+    val.value = ''
 }
 
 class Bd {
@@ -110,8 +111,8 @@ class Bd {
 }
 
 const bd = new Bd()
-
 const expenseRecord = document.getElementById('register')
+
 
 expenseRecord.addEventListener('click', () => {
 
@@ -120,7 +121,7 @@ expenseRecord.addEventListener('click', () => {
     const titleModal = document.getElementById('titleModal')
     const descriptionModal = document.getElementById('descriptionModal')
     const closeBtn = document.getElementById('close')
-    document.getElementById('notice').addEventListener('click', function() {
+    document.getElementById('notice').addEventListener('click', () => {
         window.location.href = 'consulta.html'
     })
     
@@ -157,7 +158,7 @@ function loadExpenseList(expenses = [], filt = false) {
     // /selecionando o tbody no index.html
     let expenseList = document.getElementById('expenseList')
     expenseList.innerHTML = ''
-    clean()
+    // clean()
     expenses.forEach(function (expen) {
         const row = expenseList.insertRow()
         row.insertCell(0).innerHTML = `${expen.day}/${expen.month}/${expen.year}`
@@ -190,7 +191,7 @@ function loadExpenseList(expenses = [], filt = false) {
             if (btnConfirm) {
                 const id = this.id.replace('id_expense_', '')
                 document.getElementById('descriptionModal').innerHTML = `Você tem certeza que deseja excluir ${expen.type}/${expen.description} ?`
-                btnConfirm.onclick = function () {
+                btnConfirm.onclick = () => {
                     bd.remove(id)
                     window.location.reload()
 
@@ -205,7 +206,7 @@ function loadExpenseList(expenses = [], filt = false) {
     })
 }
 
-function searchExpense() {
+const searchExpense = () => {
     const expense = new Register(year.value, month.value, day.value, type.value, description.value, val.value)
     let expenses = bd.search(expense)
     let expenseList = document.getElementById('expenseList')
